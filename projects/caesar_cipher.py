@@ -20,13 +20,16 @@ def language_pack():
             answer = input('ru/en: ').strip()
 
 
-def is_valid_lang(text, lang_pack):
+def is_valid_text(text, lang_pack):
     flag = True
+    letters = 0
     for c in text.lower():
-        if c.isalpha() and c not in lang_pack:
-            flag = False
-            break
-    return flag
+        if c.isalpha():
+            letters += 1
+            if c not in lang_pack:
+                flag = False
+                break
+    return all([flag, letters])
 
 
 def is_valid(language):
@@ -35,13 +38,13 @@ def is_valid(language):
     text = input('Введите текст: ').strip()
     if language == 'ru':
         while True:
-            if is_valid_lang(text, ru_pack):
+            if is_valid_text(text, ru_pack):
                 return text
             else:
                 text = input('Введите текст на выбранном языке: ').strip()
     if language == 'en':
         while True:
-            if is_valid_lang(text, en_pack):
+            if is_valid_text(text, en_pack):
                 return text
             else:
                 text = input('Введите текст на выбранном языке: ').strip()
