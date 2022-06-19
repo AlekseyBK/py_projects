@@ -109,13 +109,12 @@ def decryption(language, step, text):
 def caesar_cipher():
     direction = enc_or_dec()
     language = language_pack()
+    text = input('Введите текст: ').strip()
     if direction == 'enc':
         step = valid_step()
-        text = input('Введите текст: ').strip()
         return ['\nРезультат:', encryption(language, step, text)]
     if direction == 'dec':
         step = is_step()
-        text = input('Введите текст: ').strip()
         return ['\nРезультат:', *decryption(language, step, text)]
 
 
