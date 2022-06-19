@@ -23,7 +23,7 @@ def language_pack():
 def is_valid_lang(text, lang_pack):
     flag = True
     for c in text.lower():
-        if c not in lang_pack:
+        if c.isalpha() and c not in lang_pack:
             flag = False
             break
     return flag
