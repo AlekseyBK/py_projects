@@ -20,6 +20,33 @@ def language_pack():
             answer = input('ru/en: ').strip()
 
 
+def is_valid_lang(text, lang_pack):
+    flag = True
+    for c in text.lower():
+        if c not in lang_pack:
+            flag = False
+            break
+    return flag
+
+
+def is_valid(language):
+    ru_pack = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+    en_pack = 'abcdefghijklmnopqrstuvwxyz'
+    text = input('Введите текст: ').strip()
+    if language == 'ru':
+        while True:
+            if is_valid_lang(text, ru_pack):
+                return text
+            else:
+                text = input('Введите текст на выбранном языке: ').strip()
+    if language == 'en':
+        while True:
+            if is_valid_lang(text, en_pack):
+                return text
+            else:
+                text = input('Введите текст на выбранном языке: ').strip()
+
+
 def valid_step():
     step = input('Введите шаг сдвига: ').strip()
     while True:
@@ -106,10 +133,21 @@ def decryption(language, step, text):
         return dec(ord('a'), 26, text, step)
 
 
+def is_continue():
+    answer = input('\nЖелаете повторить? (да/нет): ').strip()
+    while True:
+        if answer in ['да', 'lf', 'д', 'l']:
+            return True
+        elif answer in ['нет', 'ytn', 'н', 'y']:
+            return False
+        else:
+            answer = input('да/нет: ').strip()
+
+
 def caesar_cipher():
     direction = enc_or_dec()
     language = language_pack()
-    text = input('Введите текст: ').strip()
+    text = is_valid(language)
     if direction == 'enc':
         step = valid_step()
         return ['\nРезультат:', encryption(language, step, text)]
@@ -118,4 +156,11 @@ def caesar_cipher():
         return ['\nРезультат:', *decryption(language, step, text)]
 
 
-print(*caesar_cipher(), sep='\n')
+while True:
+    print(*caesar_cipher(), sep='\n')
+    if is_continue():
+        print('-' * 30)
+        continue
+    else:
+        print('Всего хорошего!')
+        break
